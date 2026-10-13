@@ -195,6 +195,41 @@ $("plan").addEventListener("click",()=>{
  ];
  $("planOutput").innerHTML="<h3>Starter plan for "+esc(business)+"</h3><p class='desc'>Goal: "+esc(goal)+"</p>"+tasks.map(t=>`<div class="result"><strong>${esc(t[0])}</strong><p class="desc">${esc(t[1])}</p></div>`).join("");
 });
+  
+document.querySelectorAll(".navitem[data-view]").forEach(function (item) {
+  item.addEventListener("click", function () {
+    document.querySelectorAll(".navitem").forEach(function (nav) {
+      nav.classList.remove("active");
+    });
+
+    item.classList.add("active");
+
+    var heading = document.querySelector("main h1");
+
+    if (heading) {
+      heading.textContent = item.dataset.view;
+    }
+
+    var existingNotice = document.getElementById("moduleNotice");
+
+    if (!existingNotice) {
+      existingNotice = document.createElement("p");
+      existingNotice.id = "moduleNotice";
+
+      if (heading) {
+        heading.insertAdjacentElement("afterend", existingNotice);
+      }
+    }
+
+    if (item.dataset.view === "Overview") {
+      existingNotice.textContent = "";
+    } else {
+      existingNotice.textContent =
+        item.dataset.view +
+        " workspace selected. This module is not built yet. Your existing SEO audit tools remain available.";
+    }
+  });
+});
 </script>
 </body>
 </html>
