@@ -1,0 +1,199 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AuraScan AI — SEO Command Center</title>
+<style>
+:root{color-scheme:dark;--bg:#090d16;--panel:#111827;--line:#263246;--text:#edf3ff;--muted:#91a0b8;--accent:#8b7cff;--green:#48d6a0;--orange:#ffb86b}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:15px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+button,input,textarea{font:inherit}
+.app{max-width:1400px;margin:auto;padding:24px}
+header{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:22px}
+.brand{display:flex;align-items:center;gap:12px;font-size:21px;font-weight:800}
+.logo{display:grid;place-items:center;width:43px;height:43px;border-radius:13px;background:linear-gradient(135deg,#a89aff,#6251d9);color:white;font-size:24px}
+.brand small{display:block;color:var(--muted);font-size:11px;font-weight:500;margin-top:4px}
+.status{font-size:12px;color:var(--green);border:1px solid #245743;border-radius:30px;padding:8px 12px}
+.layout{display:grid;grid-template-columns:210px minmax(0,1fr);gap:24px;margin-top:24px}
+nav,.panel,.stat{background:var(--panel);border:1px solid var(--line);border-radius:15px}
+nav{padding:16px;height:max-content}
+.navtitle{font-size:10px;color:var(--muted);letter-spacing:1.5px;margin:10px 9px}
+.navitem{display:block;padding:11px 10px;color:#bac6db;border-radius:8px;margin:3px 0;font-size:13px}
+.navitem.active{background:#292344;color:#c6bcff}
+main{min-width:0}
+h1{font-size:30px;margin:0 0 8px}
+.subtitle{color:var(--muted);line-height:1.6;margin:0 0 22px}
+.panel{padding:20px;margin-bottom:18px}
+h2{font-size:17px;margin:0 0 8px}
+.desc{color:var(--muted);font-size:13px;line-height:1.6}
+.formrow{display:flex;gap:10px;margin-top:16px}
+input,textarea{width:100%;min-width:0;background:#0a101d;color:var(--text);border:1px solid #35425a;border-radius:9px;padding:13px;outline:none}
+input:focus,textarea:focus{border-color:var(--accent)}
+button{border:0;border-radius:9px;background:var(--accent);color:white;padding:12px 16px;font-weight:700;cursor:pointer}
+button:disabled{opacity:.5;cursor:wait}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.stat{padding:17px}
+.stat .label{color:var(--muted);font-size:12px}
+.stat strong{display:block;font-size:27px;margin:12px 0 5px}
+.stat small{color:var(--muted)}
+.result{padding:14px 0;border-bottom:1px solid var(--line)}
+.result:last-child{border-bottom:0}
+.tag{display:inline-block;font-size:11px;padding:5px 8px;border-radius:6px;background:#292344;color:#c9c0ff;margin-bottom:8px}
+.good{color:var(--green)}.warn{color:var(--orange)}
+textarea{min-height:160px;resize:vertical;line-height:1.5;margin:12px 0}
+.secondary{background:#253249}
+.footer{color:var(--muted);font-size:12px;text-align:center;padding:18px}
+.hidden{display:none}
+@media(max-width:760px){.app{padding:15px}.layout{grid-template-columns:1fr}.sidebar{display:none}.grid{grid-template-columns:1fr}.formrow{flex-direction:column}h1{font-size:25px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+<div class="brand"><div class="logo">✳</div><div>AuraScan AI<small>SEO INTELLIGENCE PLATFORM</small></div></div>
+<div class="status">● FREE STARTER VERSION</div>
+</header>
+<div class="layout">
+<aside class="sidebar">
+<nav>
+<div class="navtitle">WORKSPACE</div>
+<div class="navitem active">◈ Overview</div>
+<div class="navitem">⌕ Site Audit</div>
+<div class="navitem">⌘ Keyword Research</div>
+<div class="navitem">◎ Competitors</div>
+<div class="navitem">✎ Content Studio</div>
+<div class="navitem">↗ On-Page SEO</div>
+<div class="navitem">⌁ Internal Links</div>
+<div class="navitem">◇ Backlinks</div>
+<div class="navitem">✳ AI Search / GEO</div>
+<div class="navitem">▥ Analytics</div>
+<div class="navtitle">AI TEAM</div>
+<div class="navitem">🤖 CEO Orchestrator</div>
+<div class="navitem">50 Specialist Roles</div>
+</nav>
+</aside>
+<main>
+<h1>SEO Command Center</h1>
+<p class="subtitle">Your free workspace for website analysis, SEO planning and AI-powered workflows.</p>
+<section class="panel">
+<h2>Start an SEO analysis</h2>
+<p class="desc">Enter a website URL to record your audit target. For a real analysis in this starter version, paste the page's HTML below. The browser cannot directly inspect every external website.</p>
+<div class="formrow">
+<input id="url" type="url" placeholder="https://example.com" aria-label="Website URL">
+<button id="prepare">Set target</button>
+</div>
+<p id="targetMessage" class="desc" aria-live="polite">No target selected yet.</p>
+</section>
+<section class="grid">
+<div class="stat"><div class="label">Audit status</div><strong id="auditStatus">Ready</strong><small>Waiting for page HTML</small></div>
+<div class="stat"><div class="label">SEO checks</div><strong id="checkCount">0</strong><small>Checks completed locally</small></div>
+<div class="stat"><div class="label">Issues detected</div><strong id="issueCount">0</strong><small>Based on supplied HTML</small></div>
+</section>
+<section class="panel" style="margin-top:18px">
+<h2>Page HTML analyzer</h2>
+<p class="desc">Paste the HTML source of a page you are authorized to inspect. In Chrome, open the page, right-click, choose View Page Source, then copy and paste its source here. This tool analyzes only the HTML you provide.</p>
+<textarea id="htmlInput" placeholder="Paste page HTML here..."></textarea>
+<div class="formrow">
+<button id="analyze">Analyze HTML</button>
+<button id="clear" class="secondary">Clear</button>
+</div>
+<div id="report" aria-live="polite" style="margin-top:18px">
+<p class="desc">Your evidence-based SEO findings will appear here.</p>
+</div>
+</section>
+<section class="panel">
+<h2>AI SEO Copilot — free starter</h2>
+<p class="desc">Use this workspace to formulate tasks for the future AI team. This first version generates a practical checklist locally; it does not claim to call an AI model.</p>
+<input id="business" placeholder="Business type, e.g. local dental clinic">
+<input id="goal" style="margin-top:10px" placeholder="Your goal, e.g. improve local organic traffic">
+<button id="plan" style="margin-top:12px">Create SEO action plan</button>
+<div id="planOutput" aria-live="polite"></div>
+</section>
+<div class="footer">AuraScan AI · Free starter · Findings are limited to the data you provide.</div>
+</main>
+</div>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+let target="";
+$("prepare").addEventListener("click",()=>{
+ const value=$("url").value.trim();
+ try{
+  const u=new URL(value);
+  if(!["http:","https:"].includes(u.protocol))throw Error();
+  target=u.href;
+  $("targetMessage").textContent="Audit target saved: "+target;
+ }catch{
+  $("targetMessage").textContent="Enter a valid full URL beginning with https://";
+ }
+});
+$("clear").addEventListener("click",()=>{
+ $("htmlInput").value="";
+ $("report").innerHTML='<p class="desc">Your evidence-based SEO findings will appear here.</p>';
+ $("auditStatus").textContent="Ready";$("checkCount").textContent="0";$("issueCount").textContent="0";
+});
+function esc(s){return s.replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+$("analyze").addEventListener("click",()=>{
+ const source=$("htmlInput").value;
+ if(!source.trim()){
+  $("report").innerHTML='<p class="warn">Paste page HTML first. No website has been crawled.</p>';return;
+ }
+ const doc=new DOMParser().parseFromString(source,"text/html");
+ const findings=[];
+ function check(name,ok,detail){
+  findings.push({name,ok,detail});
+ }
+ const title=doc.querySelector("title")?.textContent.trim()||"";
+ const desc=doc.querySelector('meta[name="description" i]')?.getAttribute("content")?.trim()||"";
+ const h1=doc.querySelectorAll("h1");
+ const images=[...doc.images];
+ const missingAlt=images.filter(i=>!i.hasAttribute("alt"));
+ const links=[...doc.querySelectorAll("a[href]")];
+ const canonical=doc.querySelector('link[rel~="canonical" i]')?.getAttribute("href")||"";
+ const robots=doc.querySelector('meta[name="robots" i]')?.content||"";
+ const viewport=doc.querySelector('meta[name="viewport" i]');
+ const lang=doc.documentElement.getAttribute("lang")||"";
+ const schema=doc.querySelector('script[type="application/ld+json"]');
+ const wordCount=(doc.body?.innerText||"").trim().split(/\s+/).filter(Boolean).length;
+ check("Title tag",!!title,title?`${title.length} characters`:"No title found");
+ check("Meta description",!!desc,desc?`${desc.length} characters`:"No meta description found");
+ check("H1 heading",h1.length===1,`${h1.length} H1 heading(s) found`);
+ check("Image alt attributes",missingAlt.length===0,`${missingAlt.length} of ${images.length} images lack an alt attribute`);
+ check("Canonical tag",!!canonical,canonical||"No canonical tag found");
+ check("Viewport tag",!!viewport,viewport?"Viewport tag found":"No viewport tag found");
+ check("HTML language",!!lang,lang||"No lang attribute on html element");
+ check("Robots meta",!/\bnoindex\b/i.test(robots),robots||"No robots meta directive found");
+ check("Structured data",!!schema,schema?"JSON-LD script found":"No JSON-LD structured data found");
+ check("Text content",wordCount>=300,`${wordCount} visible-text words in supplied HTML`);
+ check("Internal links",links.some(a=>{try{return new URL(a.href,target||location.href).hostname===new URL(target||location.href).hostname}catch{return false}}),`${links.length} link(s) inspected; target URL affects internal-link classification`);
+ const passed=findings.filter(f=>f.ok).length;
+ const issues=findings.length-passed;
+ $("auditStatus").textContent="Complete";$("checkCount").textContent=String(findings.length);$("issueCount").textContent=String(issues);
+ $("report").innerHTML=`<h2>HTML analysis results</h2><p class="desc">Analyzed supplied HTML only · ${passed} checks passed · ${issues} checks need attention.</p>`+
+ findings.map(f=>`<div class="result"><span class="tag ${f.ok?"good":"warn"}">${f.ok?"PASS":"REVIEW"}</span><br><strong>${esc(f.name)}</strong><p class="desc">${esc(f.detail)}</p></div>`).join("")+
+ `<button id="downloadReport" style="margin-top:15px">Download report (CSV)</button>`;
+ $("downloadReport").addEventListener("click",()=>{
+  const rows=[["Check","Status","Finding"],...findings.map(f=>[f.name,f.ok?"PASS":"REVIEW",f.detail])];
+  const csv=rows.map(r=>r.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(",")).join("\r\n");
+  const blob=new Blob([csv],{type:"text/csv;charset=utf-8;"});
+  const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="aurascan-seo-report.csv";a.click();URL.revokeObjectURL(a.href);
+ });
+});
+$("plan").addEventListener("click",()=>{
+ const business=$("business").value.trim()||"your website";
+ const goal=$("goal").value.trim()||"improve organic search performance";
+ const tasks=[
+ ["1. Establish a baseline","Connect or export available Search Console data. Record clicks, impressions, indexed pages and important landing pages."],
+ ["2. Fix technical blockers","Review crawl access, sitemap, canonical tags, page status codes, mobile usability and page performance using real evidence."],
+ ["3. Improve high-value pages","Review search intent, titles, descriptions, headings, content usefulness and clear calls to action."],
+ ["4. Build topic coverage","Group relevant keywords by intent, map each group to a suitable page and identify missing useful content."],
+ ["5. Strengthen internal links","Find relevant pages that can link to priority pages with descriptive, natural anchor text."],
+ ["6. Measure progress","Track the same metrics weekly and prioritize changes based on results."]
+ ];
+ $("planOutput").innerHTML="<h3>Starter plan for "+esc(business)+"</h3><p class='desc'>Goal: "+esc(goal)+"</p>"+tasks.map(t=>`<div class="result"><strong>${esc(t[0])}</strong><p class="desc">${esc(t[1])}</p></div>`).join("");
+});
+</script>
+</body>
+</html>
