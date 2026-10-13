@@ -231,5 +231,45 @@ document.querySelectorAll(".navitem[data-view]").forEach(function (item) {
   });
 });
 </script>
+  
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  document.querySelectorAll("nav button[data-view]").forEach(function (button) {
+    button.addEventListener("click", function () {
+      document.querySelectorAll("nav button[data-view]").forEach(function (item) {
+        item.classList.remove("active");
+      });
+
+      button.classList.add("active");
+
+      var heading = document.querySelector("main h1");
+      var notice = document.getElementById("moduleNotice");
+
+      if (heading) {
+        heading.textContent =
+          button.getAttribute("data-view") === "Overview"
+            ? "SEO Command Center"
+            : button.getAttribute("data-view");
+      }
+
+      if (!notice && heading) {
+        notice = document.createElement("p");
+        notice.id = "moduleNotice";
+        notice.className = "desc";
+        heading.insertAdjacentElement("afterend", notice);
+      }
+
+      if (notice) {
+        notice.textContent =
+          button.getAttribute("data-view") === "Overview"
+            ? ""
+            : "Workspace selected: " +
+              button.getAttribute("data-view") +
+              ". This module's tools are still under development.";
+      }
+    });
+  });
+});
+</script>
 </body>
 </html>
